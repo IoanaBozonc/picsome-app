@@ -1,13 +1,16 @@
-export async function fetchPictures(limit = 100) {
+export async function fetchPictures() {
   try {
-    const res = await fetch(`https://picsum.photos/v2/list?limit=${limit}`);
-    if (!res.ok) {
-      throw new Error(`Failed to fetch pictures: ${res.status} ${res.statusText}`);
-    }
-    const data = await res.json();
-    return data;
+    //  20 de produse de haine
+    // 'fashion,clothing,outfit' pentru poze faine
+    const fashionData = Array.from({ length: 20 }, (_, i) => ({
+      id: i + 200,
+      download_url: `https://loremflickr.com/800/1000/fashion,clothing,outfit?lock=${i}`,
+      title: `Articol Fashion #${i + 1}`
+    }));
+
+    return fashionData;
   } catch (error) {
-    console.error("Error fetching pictures:", error);
-    return []; // Return empty array on error
+    console.error("Error generating fashion pictures:", error);
+    return [];
   }
 }
